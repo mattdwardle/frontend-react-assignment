@@ -1,19 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface TicketsState {
-    prop: string;
-}
-
-const initialState = {
-    props: '',
-};
+const initialState = {};
 
 export const ticketsSlice = createSlice({
     name: 'tickets',
     initialState,
     reducers: {
         fn: (state) => {
-            // implement
+            // implement the reducers
         },
     },
 });

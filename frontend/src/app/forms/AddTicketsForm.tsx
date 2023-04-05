@@ -26,7 +26,7 @@ const defaultValues: AddTicketsFormValues = {
     title: '',
     description: '',
     price: '',
-    amount: 0,
+    amount: 1,
     supplier: '',
 };
 

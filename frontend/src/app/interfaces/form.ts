@@ -1,6 +1,6 @@
 export interface FormProps<T> {
-    values?: Partial<T>;
-    defaultValues?: Partial<T>;
+    values?: T;
+    defaultValues?: T;
     onSubmit: (values: T) => void;
     loading?: boolean;
     disableSubmit?: boolean;
