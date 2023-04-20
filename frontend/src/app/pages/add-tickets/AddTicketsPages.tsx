@@ -5,7 +5,6 @@ import { AddTicketsForm, AddTicketsFormValues } from '../../forms/AddTicketsForm
 import { colors } from '../../constants/colors'
 import { useAddNewTicketMutation } from '../../store/ticketsSlice'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 
 const useStyles = createStyles((theme) => ({
     formContainer: {
@@ -23,6 +22,7 @@ export const AddTicketsPage = () => {
     const { classes } = useStyles()
     const navigate = useNavigate()
 
+    // This is the mutation hook that will be used to add a new ticket
     const [addNewTicket] = useAddNewTicketMutation()
 
     const onFormSubmit = (values: AddTicketsFormValues) => {
@@ -36,6 +36,8 @@ export const AddTicketsPage = () => {
             })
             .catch((err) => {
                 console.log('err', err)
+                // Potentially show an error message to the user in another way
+                alert('Error creating ticket')
             })
     }
 
