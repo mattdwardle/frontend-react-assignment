@@ -3,28 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { AddTicketsPage } from './app/pages/add-tickets/AddTicketsPages';
-import { TicketsListPage } from './app/pages/tickets-list/TicketsListPage';
-
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-    },
-    {
-        path: '/tickets',
-        element: <AddTicketsPage />,
-    },
-    {
-        path: '/tickets-list',
-        element: <TicketsListPage />,
-    },
-]);
 
 ReactDOM.render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <App />
     </React.StrictMode>,
     document.getElementById('root')
 );

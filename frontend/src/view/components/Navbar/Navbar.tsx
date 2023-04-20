@@ -1,9 +1,9 @@
-import React from 'react';
-import { createStyles, Grid } from '@mantine/core';
-import { ChildlessBaseComponent } from '../../../app/interfaces/BaseComponent';
-import classNames from 'classnames';
-import { NavLink } from './NavLink';
-import { colors } from '../../../app/constants/colors';
+import React from 'react'
+import { createStyles, Grid } from '@mantine/core'
+import { ChildlessBaseComponent } from '../../../app/interfaces/BaseComponent'
+import classNames from 'classnames'
+import { NavLink } from './NavLink'
+import { colors } from '../../../app/constants/colors'
 
 const useStyles = createStyles((theme) => ({
     navbarContainer: {
@@ -17,10 +17,10 @@ const useStyles = createStyles((theme) => ({
         justifyContent: 'flex-end',
         flexShrink: 0,
     },
-}));
+}))
 
 export const Navbar = ({ className }: ChildlessBaseComponent) => {
-    const { classes } = useStyles();
+    const { classes } = useStyles()
 
     return (
         <Grid className={classNames(className, classes.navbarContainer)}>
@@ -32,5 +32,5 @@ export const Navbar = ({ className }: ChildlessBaseComponent) => {
                 <NavLink href="#">Tickets</NavLink>
             </Grid.Col>
         </Grid>
-    );
-};
+    )
+}
