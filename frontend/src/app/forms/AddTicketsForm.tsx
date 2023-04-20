@@ -1,8 +1,10 @@
-import React from 'react';
-import { FormProps } from '../interfaces/form';
-import { useForm, Controller } from 'react-hook-form';
-import { Grid, Input, Textarea, Button, createStyles } from '@mantine/core';
-import { FormLabel } from '../../view/components/Forms/FormLabel';
+import React from 'react'
+import { FormProps } from '../interfaces/form'
+import { useForm, Controller } from 'react-hook-form'
+import { Grid, Input, Textarea, Button, createStyles } from '@mantine/core'
+import { FormLabel } from '../../view/components/Forms/FormLabel'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 const useStyles = createStyles((theme) => ({
     buttonContainer: {
@@ -10,15 +12,19 @@ const useStyles = createStyles((theme) => ({
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
-}));
+    errorMessage: {
+        color: theme.colors.red[6],
+        marginTop: theme.spacing.xs,
+    },
+}))
 
 export interface AddTicketsFormValues {
-    email: string;
-    title: string;
-    description: string;
-    price: string;
-    amount: number;
-    supplier: string;
+    email: string
+    title: string
+    description: string
+    price: string
+    amount: number
+    supplier: string
 }
 
 const defaultValues: AddTicketsFormValues = {
@@ -28,11 +34,27 @@ const defaultValues: AddTicketsFormValues = {
     price: '',
     amount: 1,
     supplier: '',
-};
+}
+
+const schema: yup.ObjectSchema<AddTicketsFormValues> = yup.object({
+    email: yup.string().email('Must be a valid email').required('Email is required'),
+    title: yup.string().required('Title is required'),
+    description: yup.string().required('Description is required'),
+    price: yup.string().required('Price is required'),
+    amount: yup.number().required('Amount is required'),
+    supplier: yup.string().required('Supplier is required'),
+})
 
 export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) => {
-    const { control, handleSubmit } = useForm<AddTicketsFormValues>({ defaultValues });
-    const { classes } = useStyles();
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<AddTicketsFormValues>({
+        defaultValues: defaultValues,
+        resolver: yupResolver(schema as yup.ObjectSchema<AddTicketsFormValues | any>),
+    })
+    const { classes } = useStyles()
 
     return (
         <Grid>
@@ -45,8 +67,11 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                             <>
                                 <FormLabel>Email</FormLabel>
                                 <Input onChange={onChange} value={value} name={name} />
+                                {errors.email && (
+                                    <p className={classes.errorMessage}>{errors.email.message}</p>
+                                )}
                             </>
-                        );
+                        )
                     }}
                 />
             </Grid.Col>
@@ -59,8 +84,11 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                             <>
                                 <FormLabel>Title</FormLabel>
                                 <Input onChange={onChange} value={value} name={name} />
+                                {errors.title && (
+                                    <p className={classes.errorMessage}>{errors.title.message}</p>
+                                )}
                             </>
-                        );
+                        )
                     }}
                 />
             </Grid.Col>
@@ -73,8 +101,13 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                             <>
                                 <FormLabel>Description</FormLabel>
                                 <Textarea onChange={onChange} value={value} name={name} />
+                                {errors.description && (
+                                    <p className={classes.errorMessage}>
+                                        {errors.description.message}
+                                    </p>
+                                )}
                             </>
-                        );
+                        )
                     }}
                 />
             </Grid.Col>
@@ -92,8 +125,11 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                                     value={value}
                                     name={name}
                                 />
+                                {errors.price && (
+                                    <p className={classes.errorMessage}>{errors.price.message}</p>
+                                )}
                             </>
-                        );
+                        )
                     }}
                 />
             </Grid.Col>
@@ -111,8 +147,11 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                                     value={value}
                                     name={name}
                                 />
+                                {errors.amount && (
+                                    <p className={classes.errorMessage}>{errors.amount.message}</p>
+                                )}
                             </>
-                        );
+                        )
                     }}
                 />
             </Grid.Col>
@@ -125,8 +164,13 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                             <>
                                 <FormLabel>Supplier</FormLabel>
                                 <Input onChange={onChange} value={value} name={name} />
+                                {errors.supplier && (
+                                    <p className={classes.errorMessage}>
+                                        {errors.supplier.message}
+                                    </p>
+                                )}
                             </>
-                        );
+                        )
                     }}
                 />
             </Grid.Col>
@@ -134,5 +178,5 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                 <Button onClick={handleSubmit(onSubmit)}>Add tickets</Button>
             </Grid.Col>
         </Grid>
-    );
-};
+    )
+}
